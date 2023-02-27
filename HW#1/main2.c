@@ -10,11 +10,11 @@ int main() {
         int count = 0;
         while (a[i] >= '0' && a[i] <= '9') {
             count = a[i] - '0';
-            i++;
             for (int k = 0; k < count; k++) {
-                output[j] = a[i-2];
+                output[j] = a[i-1];
                 j++;
             }
+            i++;
         }
     }
     output[j] = '\0'; 
