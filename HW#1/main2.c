@@ -13,8 +13,8 @@ int main() {
             count = a[i] - '0';
             i++;
             for (int k = 0; k < count; k++) {
-            output[j] = alp;
-            j++;
+                output[j] = alp;
+                j++;
             }
         }
     }
