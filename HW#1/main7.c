@@ -2,20 +2,31 @@
 
 int main() {
     char a[] = "10001111";
+    char str[100];
     int decimal = 0;
-    for (int i = 0; a[i] != '\0'; i++) {
-        decimal = decimal << 1;  // 左移一位，
-        if (a[i] == '1') {
-            decimal = decimal | 1;  // 設最低位為1
-        }
-    }
-    char hex_str[3];
-    int high = decimal >> 4;  // 取高4位
-    int low = decimal & 0x0F;  // 取低4位
-    hex_str[0] = (high < 10) ? (high + '0') : (high - 10 + 'A');  // 轉換高4位
-    hex_str[1] = (low < 10) ? (low + '0') : (low - 10 + 'A');  // 轉換低4位
-    hex_str[2] = '\0';  
     
-    printf("%s\n", hex_str);
+    int i, j;
+    for(i = 0; a[i] != '\0'; i++) {     //轉十進位
+        decimal = decimal * 2 + (a[i] - '0');
+    }
+    i = 0;
+    
+    while (decimal != 0) {    //計算十六進位
+        int r = decimal % 16;
+        str[i++] = (r < 10)?r + '0':r - 10 + 'A';
+        decimal /= 16;
+    }
+    if (i == 0) {
+        str[i++] = '0';
+    }
+    str[i] = '\0';
+    
+    int len = i;
+    for (i = 0, j = len - 1; i < j; i++, j--) {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+    printf("%s\n", str);
     return 0;
 }
