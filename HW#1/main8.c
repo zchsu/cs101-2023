@@ -1,32 +1,37 @@
 #include <stdio.h>
 
-int main() {
-    char a[] = "10001111";
-    char str[100];
-    int decimal = 0;
-    
+void swap(char *a, char *b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void reverse(char str[], int len) {
     int i, j;
-    for(i = 0; a[i] != '\0'; i++) {     //轉十進位
-        decimal = decimal * 2 + (a[i] - '0');
+    for (i = 0, j = len; i < j; i++, j--) {    // 交換字母
+        
+        while (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')) && i < j) i++;
+        while (!((str[j] >= 'a' && str[j] <= 'z') || (str[j] >= 'A' && str[j] <= 'Z')) && i < j) j--;
+        swap(&str[i], &str[j]);
     }
-    i = 0;
-    
-    while (decimal != 0) {    //計算十六進位
-        int r = decimal % 16;
-        str[i++] = (r < 10)?r + '0':r - 10 + 'A';
-        decimal /= 16;
+}
+
+void change(char str[], int len) {
+    if (str[0] >= 'a' && str[0] <= 'z') {
+            str[0] = str[0] - 'a' + 'A';
     }
-    if (i == 0) {
-        str[i++] = '0';
+    if (str[len - 1] >= 'A' && str[len - 1] <= 'Z') {
+            str[len - 1] = str[len - 1] - 'A' + 'a';
     }
-    str[i] = '\0';
-    
-    int len = i;
-    for (i = 0, j = len - 1; i < j; i++, j--) {
-        char temp = str[i];
-        str[i] = str[j];
-        str[j] = temp;
-    }
-    printf("%s\n", str);
+}
+
+int main() {
+    char a[] = "Hello";
+    int len = sizeof(a) / sizeof(char) - 1;
+    printf("a: %s\n", a);
+    reverse(a, len);
+    change(a, len);
+    printf("a: %s\n", a);
     return 0;
 }
+
