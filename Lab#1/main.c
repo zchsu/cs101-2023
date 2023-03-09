@@ -3,8 +3,8 @@
 
 int main() {
     int a[] = {1, 2, 3};
-    //ar b[] = "ABC";
-    //oat c[] = {1.1, 1.2, 1.3};
+    //char b[] = "ABC";
+    //float c[] = {1.1, 1.2, 1.3};
     FILE* fp;
     int arr_read[3];
     
@@ -20,4 +20,3 @@ int main() {
     
     return 0;
 }
-
