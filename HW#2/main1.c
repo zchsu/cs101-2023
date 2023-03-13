@@ -11,7 +11,6 @@ void sort(int *arr, int length) {
     for (int k = 0; k < length-1; k++) {    
         for (int j = 0; j < length-k-1; j++) {
             if (arr[j] > arr[j+1]) {
-        
                 int temp = arr[j];
                 arr[j] = arr[j+1];
                 arr[j+1] = temp;
@@ -43,35 +42,24 @@ void generate_lottery_numbers(int *arr, int max_num, int length) {
         arr[i] = num;
     }
 }
-
 int main() {
-    int lottery_numbers[NUM_OF_LOTTERY];
-    int special_number[NUM_OF_SPECIAL];
+    int lottery_numbers[NUM_OF_LOTTERY], special_number[NUM_OF_SPECIAL], n;
     srand((unsigned)time(NULL));
-    
-    int n;
-    printf("歡迎光臨長庚樂透彩購買機臺\n");
-    printf("請問您要買幾組樂透彩 (1 ~ 5): ");
+    printf("歡迎光臨長庚樂透彩購買機臺\n請問您要買幾組樂透彩 (1 ~ 5): ");
     scanf("%d", &n);
     printf("以爲您購買的%d組樂透組合輸出至lotto.txt\n", n);
-    
-    FILE* fp;
-    fp = fopen("lotto.txt", "w+");
-    
-    fprintf(fp, "======== lotto649 ========\n");
-    
-    time_t curtime;
-    time(&curtime);
-    fprintf(fp, " %s", ctime(&curtime));
+    FILE* fp = fopen("lotto.txt", "w+");
+    putenv("TZ=Asia/Taipei");
+    tzset();
+    time_t curtime = time(NULL);
+    asctime(localtime(&curtime));
+    fprintf(fp, "======== lotto649 ========\n %s", asctime(localtime(&curtime)));
     
     for (int i = 1; i <= n; i++) {
         generate_lottery_numbers(lottery_numbers, MAX_NUM, NUM_OF_LOTTERY);
         generate_lottery_numbers(special_number, MAX_SPECIAL_NUM, NUM_OF_SPECIAL);
-        
-        fprintf(fp, "[%d]: ", i);
-        
         sort(lottery_numbers, NUM_OF_LOTTERY);
-          
+        fprintf(fp, "[%d]: ", i);
         for (int i = 0; i < NUM_OF_LOTTERY; i++) {
             if(lottery_numbers[i] <= 9) {
                 fprintf(fp, "0%d ", lottery_numbers[i]);
@@ -79,7 +67,6 @@ int main() {
                 fprintf(fp, "%d ", lottery_numbers[i]);
             }
         }
-    
         for (int i = 0; i < NUM_OF_SPECIAL; i++) { 
             check_special_same(lottery_numbers, special_number, MAX_SPECIAL_NUM, NUM_OF_LOTTERY);
             if(special_number[i] <= 9) {
@@ -95,6 +82,5 @@ int main() {
     }
     fprintf(fp, "======== csie@CGU ========\n");
     fclose(fp);
-    
     return 0;
 }
