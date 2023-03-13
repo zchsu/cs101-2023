@@ -54,7 +54,6 @@ int main() {
     time_t curtime = time(NULL);
     asctime(localtime(&curtime));
     fprintf(fp, "======== lotto649 ========\n %s", asctime(localtime(&curtime)));
-    
     for (int i = 1; i <= n; i++) {
         generate_lottery_numbers(lottery_numbers, MAX_NUM, NUM_OF_LOTTERY);
         generate_lottery_numbers(special_number, MAX_SPECIAL_NUM, NUM_OF_SPECIAL);
